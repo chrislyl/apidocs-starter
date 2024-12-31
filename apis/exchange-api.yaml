@@ -1,0 +1,3086 @@
+openapi: 3.0.1
+info:
+  title: QIMA Exchange RESTful APIs
+  contact:
+    name: pioneer
+    url: https://qima.com
+    email: itsupport@qima.com
+  version: 1.1.1
+servers:
+  - url: https://api-gateway.qcore-prod.qima.com/exchange-service
+    description: Generated server url
+tags:
+  - name: QIMAone Inspector
+    description: the RESTFul APIs for QIMAone Inspector
+  - name: Lowe's
+    description: the RESTFul APIs for Lowe's
+  - name: Open AI
+    description: the RESTFul APIs for Open AI
+  - name: CPSC
+    description: the RESTFul APIs for CPSC integration
+  - name: Guess
+    description: the RESTFul APIs for Guess
+  - name: MqProducer
+    description: the RESTful APIs for mq producer
+  - name: Demo
+    description: the RESTful APIs for demo purpose
+  - name: QIMAone Users
+    description: the RESTFul APIs for QIMAone Users
+  - name: MSI
+    description: the RESTFul APIs for MSI
+  - name: Cin7
+    description: the RESTFul APIs for Cin7
+  - name: Shein Test Method Mapping
+    description: the RESTFul APIs for Shein Test Method Mapping
+  - name: Google Translation
+    description: the RESTFul APIs for Google Translation
+  - name: Jansy
+    description: the RESTFul APIs for Jansy
+  - name: QIMAone Report
+    description: the RESTFul APIs for QIMAone Report
+  - name: Shein Booking Request
+    description: the RESTFul APIs for Shein Booking Request
+  - name: SBE
+    description: the RESTFul APIs for SBE
+  - name: QIMAone Entity
+    description: the RESTFul APIs for QIMAone Entity
+  - name: Shein
+    description: the RESTFul APIs for Shein business
+  - name: QIMA connect
+    description: the RESTFul APIs for QIMA connect
+  - name: System Configuration
+    description: the RESTful APIs to manage the system parameters configuration
+  - name: LF
+    description: the RESTFul APIs for LF
+  - name: Sourcidys
+    description: the RESTFul APIs for Sourcidys
+  - name: QIMAone Purchase Order
+    description: the RESTFul APIs for QIMAone Purchase Order
+  - name: QIMAone Inspection
+    description: the RESTFul APIs for QIMAone High Level Inspection
+  - name: General History
+    description: General History for all the entities
+  - name: DataMapping
+    description: the RESTful APIs for Data Mapping management
+  - name: Rag
+    description: the RESTFul APIs for Rag
+  - name: QIMAone Inspection Report
+    description: the RESTFul APIs for QIMAone Inspection Report
+  - name: QIMAone Product
+    description: the RESTFul APIs for QIMAone Product
+  - name: Azure OpenAI
+    description: the RESTFul APIs for Azure OpenAI
+  - name: QIMAone Interactive Report
+    description: the RESTFul APIs for QIMAone Interactive Report
+  - name: QIMAone Entity
+    description: the RESTFul APIs to fetch QIMAONE custom fields
+  - name: QIMAone Inspection
+    description: the RESTFul APIs for QIMAone Inspection
+  - name: Data Event
+    description: the RESTful APIs to manage the data event
+paths:
+  "/v1.0/system/config":
+    get:
+      tags:
+        - System Configuration
+      operationId: list_2
+      parameters:
+        - name: configDto
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/ConfigDto"
+        - name: pageQuery
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/PageQuery"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    put:
+      tags:
+        - System Configuration
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ConfigDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    post:
+      tags:
+        - System Configuration
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ConfigDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    delete:
+      tags:
+        - System Configuration
+      operationId: deleteBatch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                type: integer
+                format: int64
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/system/config/status":
+    put:
+      tags:
+        - System Configuration
+      operationId: changeStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ConfigDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/inspection/cancel":
+    put:
+      tags:
+        - QIMAone Inspection
+      summary: Cancel QIMAone Inspections by QSP product id list
+      operationId: cancelInspectionsByProductIds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/cpsc/import-status/{importId}":
+    put:
+      tags:
+        - CPSC
+      operationId: updateImportStatusById
+      parameters:
+        - name: importId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/v1.0/cpsc/all/import-status":
+    put:
+      tags:
+        - CPSC
+      operationId: updateImportStatus
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/v2.0/qimaone/inspection":
+    post:
+      tags:
+        - QIMAone Inspection
+      summary: Create QIMAone Inspection high level implementation
+      operationId: createOrUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/QSPOrderDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/system/general/history":
+    get:
+      tags:
+        - General History
+      operationId: list
+      parameters:
+        - name: searchDto
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/GeneralHistorySearchDto"
+        - name: pageQuery
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/PageQuery"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    post:
+      tags:
+        - General History
+      operationId: save
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GeneralHistoryDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/system/config/exist/{classification}/{key}":
+    post:
+      tags:
+        - System Configuration
+      operationId: checkUnique
+      parameters:
+        - name: classification
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/sourcidys/job/booking-order":
+    post:
+      tags:
+        - Sourcidys
+      summary: trigger Sourcidys booking-order job
+      operationId: bookingOrder
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/shein/sync-check-items/{labId}":
+    post:
+      tags:
+        - Shein
+      summary: syncCheckItemList
+      description: API for sync Shein check items
+      operationId: syncCheckItemList
+      parameters:
+        - name: labId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: boolean
+  "/v1.0/shein/shein-sync-status":
+    post:
+      tags:
+        - Shein
+      operationId: syncSheinStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/v1.0/shein/shein-summary-email":
+    post:
+      tags:
+        - Shein
+      operationId: sendSummaryEmail
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiResponseString"
+  "/v1.0/shein/mock/order-info":
+    post:
+      tags:
+        - Shein
+      summary: mockSheinOrderInfoData
+      description: Mock Shein order info data
+      operationId: mockSheinOrderInfoData
+      parameters:
+        - name: refNum
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SheinOrderInfoDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiResponseString"
+  "/v1.0/shein/lt-message/manually":
+    post:
+      tags:
+        - Shein
+      operationId: handleLTMessageByAPI
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/v1.0/shein/booking":
+    post:
+      tags:
+        - Shein
+      summary: bookingOrder
+      description: Booking order in LT for Shein
+      operationId: bookingOrder_1
+      parameters:
+        - name: refNum
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: isCache
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiResponseSheBookingResult"
+  "/v1.0/sbe/send-order":
+    post:
+      tags:
+        - SBE
+      summary: send SBE order
+      operationId: sendOrder
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/rag/job/send-reports":
+    post:
+      tags:
+        - Rag
+      summary: trigger Rag sending-reports job
+      operationId: sendReports
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/qimaone/purchase-order":
+    post:
+      tags:
+        - QIMAone Purchase Order
+      summary: Create or Update QIMAone Purchase Order
+      operationId: createOrUpdate_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PurchaseOrderDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/product":
+    get:
+      tags:
+        - QIMAone Product
+      operationId: searchByName_1
+      parameters:
+        - name: productName
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    post:
+      tags:
+        - QIMAone Product
+      summary: Create or Update QIMAone Product
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/QSPProductDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/inspection":
+    post:
+      tags:
+        - QIMAone Inspection
+      summary: Create QIMAone Inspection Order
+      operationId: createOrUpdate_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/QSPOrderDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/entity":
+    post:
+      tags:
+        - QIMAone Entity
+      summary: Create or Update QIMAone Entity
+      operationId: createOrUpdate_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/EntityDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qima-connect/auth/sign-out":
+    post:
+      tags:
+        - QIMA connect
+      operationId: signOut
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RefreshTokenRequest"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qima-connect/auth/refresh":
+    post:
+      tags:
+        - QIMA connect
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RefreshTokenRequest"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/openai/chat/completions":
+    post:
+      tags:
+        - Open AI
+      operationId: chatCompletions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ChatCompletionsRequest"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/msi/job/summary/email":
+    post:
+      tags:
+        - MSI
+      summary: msi booking summary email
+      operationId: msiBookingSummaryEmail
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/msi/job/booking":
+    post:
+      tags:
+        - MSI
+      summary: trigger msi booking job
+      operationId: msiBookingJob
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/metrics":
+    post:
+      tags:
+        - metrics-controller
+      operationId: logMetric
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/lowes/booking-order":
+    post:
+      tags:
+        - Lowe's
+      summary: booking Lowes orders
+      operationId: bookingOrder_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/FileMetaBean"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResultObject"
+  "/v1.0/lf/job/report/summary/email":
+    post:
+      tags:
+        - LF
+      summary: trigger lf report summary email job
+      operationId: lfReportSummaryEmailJob
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/lf/job/report/submission":
+    post:
+      tags:
+        - LF
+      summary: trigger lf report submission job
+      operationId: lfReportSubmissionJob
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/lf/job/report/re-submission":
+    post:
+      tags:
+        - LF
+      summary: trigger lf report reSubmission job
+      operationId: lfReportReSubmissionJob
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/lf/job/pendings/order/email":
+    post:
+      tags:
+        - LF
+      summary: trigger lf pending order list email job
+      operationId: lfPendingOrderListEmailJob
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/lf/job/combin/orders/tomorrow":
+    post:
+      tags:
+        - LF
+      summary: trigger lf combine orders tomorrow job
+      operationId: lfCombineOrdersTomorrowJob
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/lf/job/combin/orders/day-after-tomorrow":
+    post:
+      tags:
+        - LF
+      summary: trigger lf combine orders day after tomorrow job
+      operationId: lfCombineOrdersDayAfterTomorrowJob
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/lf/job/bookings/summary/email":
+    post:
+      tags:
+        - LF
+      summary: trigger lf bookings summary email job
+      operationId: lfBookingsSummaryEmailJob
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/jansy/notification":
+    post:
+      tags:
+        - Jansy
+      summary: send Jansy notification
+      operationId: notification
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/guess/job/guess-order-overview-email":
+    post:
+      tags:
+        - Guess
+      summary: trigger guess order overview job
+      operationId: guessOrderOverviewEmail
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResultObject"
+  "/v1.0/guess/booking-order-by-po-list":
+    post:
+      tags:
+        - Guess
+      summary: booking guess order by PO list
+      description: booking guess order by PO list
+      operationId: bookingOrder_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResultObject"
+  "/v1.0/google/translation/translate":
+    post:
+      tags:
+        - Google Translation
+      operationId: translate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SourceText"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/data-mapping":
+    get:
+      tags:
+        - DataMapping
+      operationId: list_3
+      parameters:
+        - name: searchDto
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/DataMappingSearchDto"
+        - name: pageQuery
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/PageQuery"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    post:
+      tags:
+        - DataMapping
+      summary: Create a data mapping
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/DataMappingDto"
+        required: true
+      responses:
+        '200':
+          description: request successful
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    delete:
+      tags:
+        - DataMapping
+      operationId: deleteBatch_1
+      parameters:
+        - name: operator
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              uniqueItems: true
+              type: array
+              items:
+                type: integer
+                format: int64
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/cpsc/consume-message":
+    post:
+      tags:
+        - CPSC
+      operationId: consumeMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/v1.0/cin7/job/booking-order":
+    post:
+      tags:
+        - Cin7
+      summary: trigger Sourcidys booking-order job
+      operationId: bookingOrder_4
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ApiCallResult"
+  "/v1.0/azure/chat/completions":
+    post:
+      tags:
+        - Azure OpenAI
+      operationId: chatCompletions_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ChatCompletionsRequest"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/mq/producer/sqs":
+    post:
+      tags:
+        - MqProducer
+      operationId: sendSqsMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SqsMsg"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/mq/producer/sns":
+    post:
+      tags:
+        - MqProducer
+      operationId: sendSnsMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SnsMsg"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/system/data/event":
+    get:
+      tags:
+        - Data Event
+      operationId: list_1
+      parameters:
+        - name: searchDto
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/DataEventSearchDto"
+        - name: pageQuery
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/PageQuery"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PageModelDataEventDto"
+  "/v1.0/system/config/{id}":
+    get:
+      tags:
+        - System Configuration
+      operationId: get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            minimum: 1000000000000000000
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    delete:
+      tags:
+        - System Configuration
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/system/config/classification/{classification}":
+    get:
+      tags:
+        - System Configuration
+      operationId: getByClassification
+      parameters:
+        - name: classification
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/system/config/classification/{classification}/key/{key}":
+    get:
+      tags:
+        - System Configuration
+      operationId: getByClassificationAndKey
+      parameters:
+        - name: classification
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - QIMAONE_INSPECTION_TYPE
+              - QIMA_CONNECT
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/shein/test-method-mapping/list":
+    get:
+      tags:
+        - Shein Test Method Mapping
+      summary: listPage
+      description: API for get Shein test method mapping list page
+      operationId: listPage
+      parameters:
+        - name: queryDto
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/SheinTestMethodMappingDto"
+        - name: pageQuery
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/PageQuery"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/shein/supplier-sample-info":
+    get:
+      tags:
+        - Shein
+      summary: getSupplierSampleInfo
+      description: API for get Shein supplier sample info
+      operationId: getCheckItemList
+      parameters:
+        - name: refNum
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SheinResponseDTOSheinOrderInfoDTO"
+  "/v1.0/shein/shein-upload-test":
+    get:
+      tags:
+        - Shein
+      operationId: uploadFileToSheinTest
+      parameters:
+        - name: fileId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: reportNo
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/v1.0/shein/check-items":
+    get:
+      tags:
+        - Shein
+      summary: getCheckItemList
+      description: API for get Shein all check item list
+      operationId: getCheckItemList_1
+      parameters:
+        - name: labId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: pageNo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 200
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SheinResponseDTOTestItemResponse"
+  "/v1.0/shein/categories":
+    get:
+      tags:
+        - Shein
+      summary: getCategories
+      description: API for get Shein material category tree list
+      operationId: getCategories
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SheinResponseDTOCategoryRes"
+  "/v1.0/shein/booking-request/list":
+    get:
+      tags:
+        - Shein Booking Request
+      summary: listPage
+      description: API for get Shein booking request list page
+      operationId: listPage_1
+      parameters:
+        - name: queryDto
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/SheinBookingRequestDto"
+        - name: pageQuery
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/PageQuery"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/users/brands":
+    get:
+      tags:
+        - QIMAone Users
+      operationId: getQimaoneBrands
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Brand"
+  "/v1.0/qimaone/report-groups/customer/{customerId}":
+    get:
+      tags:
+        - QIMAone Report
+      operationId: listReportGroups
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: keyWord
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: sortField
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sortType
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/report-groups/customer/{customerId}/detail/{reportGroupId}":
+    get:
+      tags:
+        - QIMAone Report
+      operationId: reportGroupsDetail
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: reportGroupId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/purchase-order/{id}":
+    get:
+      tags:
+        - QIMAone Purchase Order
+      operationId: detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/purchase-order/search":
+    get:
+      tags:
+        - QIMAone Purchase Order
+      summary: Search QIMAone Purchase Order ID by reference and entity
+      operationId: searchByName
+      parameters:
+        - name: reference
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: entityId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/product/{id}":
+    get:
+      tags:
+        - QIMAone Product
+      operationId: detail_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/interactive-report/product/{productId}":
+    get:
+      tags:
+        - QIMAone Interactive Report
+      summary: Get QIMAone Inspection by id
+      operationId: getReportJson
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tenantId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tenantProfile
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/inspector/search":
+    get:
+      tags:
+        - QIMAone Inspector
+      operationId: searchByEmail
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/inspection/{id}":
+    get:
+      tags:
+        - QIMAone Inspection
+      summary: Get QIMAone Inspection by id
+      operationId: getById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/inspection/summary/{id}":
+    get:
+      tags:
+        - QIMAone Inspection
+      summary: Fetch QIMAone Inspection summary by id
+      operationId: summary
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/inspection/report/details/{productId}":
+    get:
+      tags:
+        - QIMAone Inspection Report
+      summary: Fetch QIMAone Inspection report details by product id
+      operationId: insReportDetails
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tenantId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tenantProfile
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/inspection/api-properties":
+    get:
+      tags:
+        - QIMAone Inspection
+      summary: Get QIMAone API configuration properties
+      operationId: getQIMAOneApiProperties
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/entity/{id}":
+    get:
+      tags:
+        - QIMAone Entity
+      operationId: detail_2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qimaone/entity/search":
+    get:
+      tags:
+        - QIMAone Entity
+      summary: Search QIMAone Entities by name
+      operationId: searchByName_2
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/qima-connect/auth/user-login":
+    get:
+      tags:
+        - QIMA connect
+      operationId: getUserLogin
+      parameters:
+        - name: accessToken
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/produce/report-groups/search":
+    get:
+      tags:
+        - QIMAone Entity
+      operationId: searchReportGroups
+      parameters:
+        - name: customerID
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: searchText
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: sortField
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: direction
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/produce/custom-fields/fetch":
+    get:
+      tags:
+        - QIMAone Entity
+      operationId: fetchCustomFields
+      parameters:
+        - name: customerID
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/google/translation/languages":
+    get:
+      tags:
+        - Google Translation
+      operationId: languages
+      parameters:
+        - name: target
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/data-mapping/{id}":
+    get:
+      tags:
+        - DataMapping
+      summary: Get a data mapping by its unique id
+      operationId: detail_3
+      parameters:
+        - name: id
+          in: path
+          description: the unique data mapping id
+          required: true
+          schema:
+            minimum: 1000000000000000000
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+    delete:
+      tags:
+        - DataMapping
+      operationId: delete_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: operator
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/v1.0/cpsc/list-import-history":
+    get:
+      tags:
+        - CPSC
+      operationId: pageQuery
+      parameters:
+        - name: historyDTO
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/CPSCImportHistoryDTO"
+        - name: pageQuery
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/PageQuery"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/shein-mock/getSheinBookingRequestDTO":
+    get:
+      tags:
+        - mock-data-controller
+      operationId: getSheinBookingRequestDTO
+      parameters:
+        - name: sheinNo
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/metric":
+    get:
+      tags:
+        - metrics-test
+      operationId: test
+      responses:
+        '200':
+          description: OK
+  "/demo/{id}":
+    get:
+      tags:
+        - Demo
+      operationId: detail_4
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/demo/list":
+    get:
+      tags:
+        - Demo
+      operationId: list_4
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/APIResult"
+  "/test/test":
+    get:
+      tags:
+        - test-controller
+      operationId: test_1
+      parameters:
+        - name: json
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+    put:
+      tags:
+        - test-controller
+      operationId: test_4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+    post:
+      tags:
+        - test-controller
+      operationId: test_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+    delete:
+      tags:
+        - test-controller
+      operationId: test_6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+    options:
+      tags:
+        - test-controller
+      operationId: test_7
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+    head:
+      tags:
+        - test-controller
+      operationId: test_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+    patch:
+      tags:
+        - test-controller
+      operationId: test_5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+components:
+  schemas:
+    ConfigDto:
+      required:
+        - classification
+        - id
+        - key
+        - status
+        - text
+        - value
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        classification:
+          type: string
+        key:
+          type: string
+        value:
+          type: string
+        text:
+          type: string
+        sequence:
+          maximum: 32767
+          minimum: 0
+          type: integer
+          format: int32
+        status:
+          type: integer
+          format: int32
+        description:
+          type: string
+        createBy:
+          type: string
+        createTime:
+          type: string
+          format: date-time
+        updateBy:
+          type: string
+        updateTime:
+          type: string
+          format: date-time
+        createTimeStart:
+          type: string
+        createTimeEnd:
+          type: string
+        updateTimeStart:
+          type: string
+        updateTimeEnd:
+          type: string
+    APIResult:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: the status code returned by the API
+          format: int32
+        message:
+          type: string
+          description: the response message returned by the API
+          example: request successful
+        data:
+          type: object
+          description: the data object returned by the API
+      description: the API response object
+    AddressDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        street:
+          type: string
+        city:
+          type: string
+        country:
+          maxLength: 2
+          minLength: 2
+          type: string
+          description: ISO COUNTRY CODE
+      description: The address of the Entity
+    AqlDefectsDto:
+      type: object
+      properties:
+        inspectionLevel:
+          type: string
+        critical:
+          type: string
+        major:
+          type: string
+        minor:
+          type: string
+        type:
+          type: string
+        sampleSize:
+          type: integer
+          format: int32
+    ContactDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+      description: The main contact of the Entity
+    DefectChecklistCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+        defects:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DefectDto"
+    DefectChecklistDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        publicationStatus:
+          type: string
+        categories:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DefectChecklistCategoryDto"
+    DefectDto:
+      type: object
+      properties:
+        defectId:
+          type: string
+        name:
+          type: string
+        classification:
+          type: string
+        description:
+          type: string
+        documentsToDownload:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DocumentDto"
+    DocumentDto:
+      type: object
+      properties:
+        fileName:
+          type: string
+        downloadUrl:
+          type: string
+    EntityDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          description: Entity NAME
+        customId:
+          type: string
+          description: Entity ID
+        childOfBrand:
+          type: boolean
+        entityTypeId:
+          type: integer
+          format: int32
+        address:
+          "$ref": "#/components/schemas/AddressDto"
+        contact:
+          "$ref": "#/components/schemas/ContactDto"
+        identificationCode:
+          type: string
+      description: The Entity of the Inspection that need to be synced to QIMAone
+    MeasurementDto:
+      type: object
+      properties:
+        type:
+          type: string
+        aql:
+          type: string
+        level:
+          type: string
+        sampleSize:
+          type: integer
+          format: int32
+        canInspectorAddSample:
+          type: boolean
+    MultipleChoiceSuccessCriteriaDto:
+      type: object
+      properties:
+        values:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ProductReferenceAqlDto:
+      type: object
+      properties:
+        id:
+          type: string
+        productId:
+          type: string
+        productReferenceId:
+          type: string
+        prodSampleLevel:
+          type: string
+        prodSampleSize:
+          type: integer
+          format: int64
+        aqlType:
+          type: string
+        aqlCriticalText:
+          type: string
+        aqlMinorText:
+          type: string
+        aqlMajorText:
+          type: string
+    ProductReferenceDto:
+      type: object
+      properties:
+        id:
+          type: string
+        productId:
+          type: string
+        seq:
+          type: integer
+          format: int32
+        prodRefPoNb:
+          type: string
+        prodRefSkuNb:
+          type: string
+        prodRefQuantity:
+          type: integer
+          format: int64
+        productRefAql:
+          "$ref": "#/components/schemas/ProductReferenceAqlDto"
+    QSPOrderDto:
+      required:
+        - additionalInformation
+        - orderId
+        - plannedDate
+        - products
+        - shipmentDate
+      type: object
+      properties:
+        orderId:
+          type: string
+        additionalInformation:
+          type: string
+        plannedDate:
+          type: string
+          format: date
+        shipmentDate:
+          type: string
+          format: date
+        inspectionTypeId:
+          type: integer
+          format: int64
+        entity:
+          "$ref": "#/components/schemas/EntityDto"
+        supplierDto:
+          "$ref": "#/components/schemas/SupplierDto"
+        products:
+          type: array
+          items:
+            "$ref": "#/components/schemas/QSPProductDto"
+        inspectorEmail:
+          type: string
+        documents:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DocumentDto"
+      description: The Inspection order that synced from QSP
+    QSPProductDto:
+      required:
+        - aqlDefects
+        - measurementsSamplingSize
+        - orderId
+        - productId
+        - productName
+        - samplingSize
+      type: object
+      properties:
+        productId:
+          type: string
+        orderId:
+          type: string
+        productName:
+          type: string
+        sku:
+          type: string
+        productQuantity:
+          type: integer
+          format: int64
+        unit:
+          type: string
+        producedRatio:
+          type: integer
+          format: int32
+        packedRatio:
+          type: integer
+          format: int32
+        aqlDefects:
+          "$ref": "#/components/schemas/AqlDefectsDto"
+        samplingSize:
+          "$ref": "#/components/schemas/SamplingSizeDto"
+        measurementsSamplingSize:
+          "$ref": "#/components/schemas/MeasurementDto"
+        poReference:
+          type: string
+        documents:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DocumentDto"
+        defectChecklists:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DefectChecklistDto"
+        testChecklists:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TestChecklistDto"
+        productRefs:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ProductReferenceDto"
+        seq:
+          type: integer
+          format: int32
+      description: The Inspection product that synced from QSP
+    SamplingSizeDto:
+      type: object
+      properties:
+        type:
+          type: string
+        lotSize:
+          type: integer
+          format: int64
+        inspectionLevel:
+          type: string
+        sampleSize:
+          type: integer
+          format: int64
+    SupplierDto:
+      type: object
+      properties:
+        customId:
+          type: string
+        name:
+          type: string
+        childOfBrand:
+          type: boolean
+        entityTypeId:
+          type: integer
+          format: int32
+        address:
+          "$ref": "#/components/schemas/AddressDto"
+        contact:
+          "$ref": "#/components/schemas/ContactDto"
+        identificationCode:
+          type: string
+    TestChecklistConstraintDto:
+      type: object
+      properties:
+        values:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        maxAllowedAnswers:
+          type: integer
+          format: int32
+    TestChecklistContentDto:
+      type: object
+      properties:
+        elements:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TestChecklistElementDto"
+    TestChecklistDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        publicationStatus:
+          type: string
+        content:
+          "$ref": "#/components/schemas/TestChecklistContentDto"
+    TestChecklistElementDto:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        elements:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TestChecklistQuestionDto"
+    TestChecklistQuantitySamplingSizeDto:
+      type: object
+      properties:
+        type:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        unit:
+          type: string
+    TestChecklistQuestionDto:
+      type: object
+      properties:
+        name:
+          type: string
+        instruction:
+          type: string
+        expectedResult:
+          type: string
+        documentsToDownload:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DocumentDto"
+        samplingSize:
+          "$ref": "#/components/schemas/TestChecklistQuantitySamplingSizeDto"
+        type:
+          type: string
+        successCriteria:
+          "$ref": "#/components/schemas/MultipleChoiceSuccessCriteriaDto"
+        constraint:
+          "$ref": "#/components/schemas/TestChecklistConstraintDto"
+    GeneralHistoryDto:
+      type: object
+      properties:
+        id:
+          type: string
+        sourceId:
+          type: string
+        historyType:
+          type: string
+        actionType:
+          type: string
+        historyWho:
+          type: string
+        historyAction:
+          type: string
+        historyWhen:
+          type: string
+          format: date-time
+        oldData:
+          type: string
+        oldDataFileId:
+          type: string
+        newData:
+          type: string
+        newDataFileId:
+          type: string
+    ApiCallResult:
+      type: object
+      properties:
+        message:
+          type: string
+        content:
+          "$ref": "#/components/schemas/T"
+    T:
+      type: object
+    ApiResponseString:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: business response code
+          format: int32
+        message:
+          type: string
+          description: business response message
+        data:
+          type: string
+          description: business data
+      description: Response object
+    ApplyInfoDTO:
+      type: object
+      properties:
+        applyUserName:
+          type: string
+        contactNum:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        businessLicenseName:
+          type: string
+        businessLicenseAddress:
+          type: string
+    CheckRequirementDTO:
+      type: object
+      properties:
+        level:
+          type: integer
+          format: int32
+        checkRemark:
+          type: string
+        itemCodeList:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ItemCodeDTO"
+    ItemCodeDTO:
+      type: object
+      properties:
+        itemCode:
+          type: integer
+          format: int64
+        itemName:
+          type: string
+        checkType:
+          type: integer
+          format: int32
+    SheinOrderInfoDTO:
+      type: object
+      properties:
+        sheinNo:
+          type: string
+        payer:
+          type: integer
+          format: int32
+        checkTypeName:
+          type: string
+        applyInfo:
+          "$ref": "#/components/schemas/ApplyInfoDTO"
+        sampleInfoList:
+          type: array
+          items:
+            "$ref": "#/components/schemas/SheinSampleInfoDTO"
+        checkRequirement:
+          "$ref": "#/components/schemas/CheckRequirementDTO"
+    SheinSampleInfoDTO:
+      type: object
+      properties:
+        sampleNo:
+          type: string
+        sampleNoType:
+          type: integer
+          format: int32
+        ingredient:
+          type: string
+        complianceLabel:
+          type: integer
+          format: int32
+        imgUrlList:
+          type: array
+          items:
+            type: string
+    ApiResponseSheBookingResult:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: business response code
+          format: int32
+        message:
+          type: string
+          description: business response message
+        data:
+          "$ref": "#/components/schemas/SheBookingResult"
+      description: Response object
+    SheBookingResult:
+      type: object
+      properties:
+        refNum:
+          type: string
+          description: shein barcode
+          example: TR22102900008
+        ltRefNum:
+          type: string
+          description: lt order number
+          example: 23LT-00006977
+        ltRefId:
+          type: string
+          description: lt order id
+          example: 1341a367-4635-4753-a886-958718a32710
+      description: if booking successfully, summary of order info will be returned
+    PurchaseOrderDto:
+      required:
+        - purchaseOrderProducts
+        - qspProductId
+        - reference
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        qspProductId:
+          type: string
+        orderDate:
+          type: string
+          format: date
+        brandName:
+          type: string
+        tier1Id:
+          type: integer
+          format: int64
+        tier1Name:
+          type: string
+        reference:
+          type: string
+        purchaseOrderProducts:
+          type: array
+          items:
+            "$ref": "#/components/schemas/PurchaseOrderProductDto"
+    PurchaseOrderProductDto:
+      required:
+        - productId
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        productId:
+          type: integer
+          format: int64
+        productIdentifierType:
+          type: string
+        productIdentifierValue:
+          type: string
+        quantity:
+          type: number
+          format: double
+        unit:
+          type: string
+        shipmentDate:
+          type: string
+          format: date
+        hasInspections:
+          type: boolean
+    RefreshTokenRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        sub:
+          type: string
+        refreshToken:
+          type: string
+    ChatCompletionsRequest:
+      type: object
+      properties:
+        model:
+          type: string
+        messages:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Message"
+        "n":
+          type: integer
+          format: int32
+    Message:
+      type: object
+      properties:
+        role:
+          type: string
+        content:
+          type: string
+    FileMetaBean:
+      type: object
+      properties:
+        id:
+          type: string
+        srcId:
+          type: string
+        fileType:
+          type: string
+        fileName:
+          type: string
+        fileSize:
+          type: integer
+          format: int64
+        objectKey:
+          type: string
+        version:
+          type: integer
+          format: int32
+        createBy:
+          type: string
+        createTime:
+          type: string
+          format: date-time
+        updateTime:
+          type: string
+          format: date-time
+        bucket:
+          type: string
+        comments:
+          type: string
+        content:
+          type: array
+          items:
+            type: string
+            format: byte
+        s3Url:
+          type: string
+        fileMd5:
+          type: string
+        contentType:
+          type: string
+    ApiCallResultObject:
+      type: object
+      properties:
+        message:
+          type: string
+        content:
+          type: object
+    SourceText:
+      type: object
+      properties:
+        target:
+          type: string
+        model:
+          type: string
+        q:
+          type: array
+          items:
+            type: string
+    DataMappingDto:
+      required:
+        - fieldName
+        - fieldValueSource
+        - fieldValueTarget
+        - sourceSystem
+        - status
+        - targetSystem
+      type: object
+      properties:
+        fieldName:
+          type: string
+          description: field name that needs to be mapped
+        sourceSystem:
+          type: string
+          description: name of source system
+          enum:
+            - QSP
+            - QIMAONE
+            - NETSUITE
+            - SAP
+            - ACE
+            - SHEIN
+            - LT
+            - EXCHANGE
+            - CPSC
+        fieldValueSource:
+          type: string
+          description: field value in source system
+        targetSystem:
+          type: string
+          description: name of target system
+          enum:
+            - QSP
+            - QIMAONE
+            - NETSUITE
+            - SAP
+            - ACE
+            - SHEIN
+            - LT
+            - EXCHANGE
+            - CPSC
+        fieldValueTarget:
+          type: string
+          description: field value in target system
+        description:
+          type: string
+        status:
+          type: string
+          description: status of the mapping, 0 means enabled, 1 means disabled
+          enum:
+            - '0'
+            - '1'
+        createBy:
+          type: string
+        updateBy:
+          type: string
+      description: Data Mapping DTO
+    SqsMsg:
+      type: object
+      properties:
+        msgSource:
+          type: string
+        msgDest:
+          type: array
+          items:
+            type: string
+        body:
+          type: object
+        queueName:
+          type: string
+        msgAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    MessageAtrributeKeyValue:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: object
+    SnsMsg:
+      type: object
+      properties:
+        msgSource:
+          type: string
+        msgDest:
+          type: array
+          items:
+            type: string
+        body:
+          type: object
+        queueName:
+          type: string
+        msgAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        messageAttribute:
+          type: object
+          additionalProperties:
+            "$ref": "#/components/schemas/MessageAtrributeKeyValue"
+        subject:
+          type: string
+    GeneralHistorySearchDto:
+      type: object
+      properties:
+        historyType:
+          type: string
+          enum:
+            - ORDER
+            - PAYMENT
+            - INVOICE
+            - BIGLOTS_FACTORY_DATA
+            - GUESS_PO
+            - QIMAONE_INSPECTION
+            - PURCHASE_ORDER
+            - CONFIGURATION
+            - FILE
+            - LT_CPSC_EVENT
+            - CPSC_EVENT
+            - SHEIN
+            - SHEIN_SYNC_STATUS
+            - QIMAONE_QSP_EVENT
+            - DATA_MAPPING
+            - BOOKING_REQUEST
+            - BOOKING_REQUEST_ITEM
+            - INSPECTION_REPORT
+        actionType:
+          type: string
+          enum:
+            - CREATE
+            - UPDATE
+            - DELETE
+        historyWhenStart:
+          type: string
+        historyWhenEnd:
+          type: string
+    PageQuery:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+        pageNum:
+          type: integer
+          format: int32
+        orderByColumn:
+          type: string
+        isAsc:
+          type: string
+    DataEventSearchDto:
+      type: object
+      properties:
+        dataType:
+          type: string
+        sourceSystem:
+          type: string
+        targetSystem:
+          type: string
+        createTimeStart:
+          type: string
+        createTimeEnd:
+          type: string
+    DataEventDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        dataType:
+          type: string
+        apiMethod:
+          type: string
+        sourceSystem:
+          type: string
+        targetSystem:
+          type: string
+        dataContent:
+          type: string
+        fileId:
+          type: string
+        originalFileName:
+          type: string
+        status:
+          type: integer
+          format: int32
+        errorMessage:
+          type: string
+        createBy:
+          type: string
+        createTime:
+          type: integer
+          format: int64
+    PageModelDataEventDto:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+        rows:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DataEventDto"
+    SheinTestMethodMappingDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        sheinItemCode:
+          type: integer
+          format: int64
+        sheinItemName:
+          type: string
+        sheinCheckType:
+          type: integer
+          format: int32
+        sheinCheckMethodCode:
+          type: string
+        sheinCheckMethodName:
+          type: string
+        ltTestId:
+          type: string
+        ltTestName:
+          type: string
+        createTime:
+          type: string
+          format: date-time
+        updateTime:
+          type: string
+          format: date-time
+        status:
+          type: integer
+          format: int32
+    SheinResponseDTOSheinOrderInfoDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        msg:
+          type: string
+        info:
+          "$ref": "#/components/schemas/SheinOrderInfoDTO"
+    CheckMethodInfo:
+      type: object
+      properties:
+        checkMethodCode:
+          type: string
+        checkMethod:
+          type: string
+    SheinResponseDTOTestItemResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        msg:
+          type: string
+        info:
+          "$ref": "#/components/schemas/TestItemResponse"
+    TestItem:
+      type: object
+      properties:
+        itemCode:
+          type: integer
+          format: int64
+        itemName:
+          type: string
+        checkType:
+          type: integer
+          format: int32
+        checkMethodInfoList:
+          type: array
+          items:
+            "$ref": "#/components/schemas/CheckMethodInfo"
+    TestItemResponse:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          format: int32
+        list:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TestItem"
+    Category:
+      type: object
+      properties:
+        categoryId:
+          type: string
+        categoryName:
+          type: string
+        categoryParentId:
+          type: string
+        level:
+          type: integer
+          format: int32
+        leverName:
+          type: string
+    CategoryRes:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Category"
+        totalCount:
+          type: string
+    SheinResponseDTOCategoryRes:
+      type: object
+      properties:
+        code:
+          type: string
+        msg:
+          type: string
+        info:
+          "$ref": "#/components/schemas/CategoryRes"
+    SheinBookingRequestDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        sheinOrderInfo:
+          type: string
+        sheinRef:
+          type: string
+        qimaOrderNumber:
+          type: string
+        qimaOrderId:
+          type: string
+        qimaReportNumber:
+          type: string
+        currentStatus:
+          type: string
+        invoicedTime:
+          type: string
+          format: date-time
+        bookingTime:
+          type: string
+          format: date-time
+        testingTime:
+          type: string
+          format: date-time
+        reportingTime:
+          type: string
+          format: date-time
+        cancelTime:
+          type: string
+          format: date-time
+        cancelReason:
+          type: string
+        testItems:
+          type: string
+        insertTime:
+          type: string
+          format: date-time
+    Brand:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        type:
+          type: string
+    DataMappingSearchDto:
+      type: object
+      properties:
+        fieldName:
+          type: string
+          enum:
+            - PRODUCT_ID
+            - FACTORY_ENTITY_ID
+            - INSPECTION_PRODUCT_ID
+            - SERVICE_TYPE
+            - AQL_TYPE
+            - PRODUCT_PURCHASE_ORDER_ID
+            - PRODUCT_PO_PRODUCT_ID
+        sourceSystem:
+          type: string
+          enum:
+            - QSP
+            - QIMAONE
+            - NETSUITE
+            - SAP
+            - ACE
+            - SHEIN
+            - LT
+            - EXCHANGE
+            - CPSC
+        targetSystem:
+          type: string
+          enum:
+            - QSP
+            - QIMAONE
+            - NETSUITE
+            - SAP
+            - ACE
+            - SHEIN
+            - LT
+            - EXCHANGE
+            - CPSC
+        sourceValue:
+          type: string
+        targetValue:
+          type: string
+        createTimeStart:
+          type: string
+        createTimeEnd:
+          type: string
+        updateTimeStart:
+          type: string
+        updateTimeEnd:
+          type: string
+    CPSCImportHistoryDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        qimaOrderId:
+          type: string
+        qimaReportNumber:
+          type: string
+        certifierId:
+          type: string
+        collectionId:
+          type: string
+        requestJson:
+          type: string
+        importId:
+          type: string
+        currentStatus:
+          type: string
+        remark:
+          type: string
+        createTime:
+          type: string
+          format: date-time
+        createTimeStart:
+          type: string
+        createTimeEnd:
+          type: string
+        updateTime:
+          type: string
+          format: date-time

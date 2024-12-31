@@ -1,6 +1,5 @@
-- group: Museum API
-  page: apis/@v1_1/openapi.yaml
+- group: Public
+  page: apis/public-api.json  
 
-- group: GraphQL
-  page: apis/schema.graphql
-
+- group: Exchange
+  page: apis/exchange-api.yaml
